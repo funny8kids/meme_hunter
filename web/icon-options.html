@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Meme Hunter · icon options</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #070a0f; color: #e8eef8; font: 14px/1.5 Inter, "Noto Sans SC", system-ui, sans-serif; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 42px 32px 60px; }
+  .eyebrow { font: 10px ui-monospace, monospace; letter-spacing: .18em; color: #6f7f96; text-transform: uppercase; }
+  h1 { margin: 8px 0 8px; font-size: 30px; letter-spacing: -.02em; }
+  .lede { margin: 0 0 30px; color: #8b98ac; max-width: 760px; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .card { border: 1px solid #1b2637; border-radius: 16px; background: linear-gradient(180deg, #0e1520, #0a0f17); padding: 18px; box-shadow: 0 24px 60px -48px #000; }
+  .card-top { display: flex; align-items: center; gap: 14px; }
+  .tile { width: 92px; height: 92px; border-radius: 22px; display: grid; place-items: center; background: #0b111b; border: 1px solid #223047; box-shadow: inset 0 1px 0 rgba(255,255,255,.05); flex: 0 0 auto; }
+  .mini { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; background: #0b111b; border: 1px solid #223047; flex: 0 0 auto; }
+  .card h2 { margin: 0; font-size: 16px; }
+  .card p { margin: 4px 0 0; color: #8b98ac; font-size: 11.5px; line-height: 1.55; }
+  .tag { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; border: 1px solid #26364e; color: #9fb1c9; font: 9px ui-monospace, monospace; letter-spacing: .06em; }
+  .notes { margin-top: 30px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; color: #8b98ac; }
+  .notes h3 { margin: 0 0 8px; color: #d6e1f0; font-size: 13px; }
+  .notes ul { margin: 0; padding-left: 18px; font-size: 12px; line-height: 1.8; }
+  .current { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px dashed #2a3a52; border-radius: 10px; margin-top: 12px; }
+  .current .tile { width: 52px; height: 52px; border-radius: 14px; }
+  @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (max-width: 680px) { .grid, .notes { grid-template-columns: 1fr; } .wrap { padding: 26px 16px 40px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Brand mark exploration · 2026</div>
+  <h1>Meme Hunter 图标方案</h1>
+  <p class="lede">目标：在 32px 头部、16px favicon、512px App icon 都成立；既要“猎手/信号”，又不能像通用 dashboard 或交易所。</p>
+
+  <div class="grid">
+    <!-- 1 -->
+    <section class="card">
+      <div class="card-top">
+        <div class="tile">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#7bd7ff"/><stop offset="1" stop-color="#5b8cff"/>
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="62" height="62" rx="17" fill="#0a1220" stroke="#25405e"/>
+            <circle cx="32" cy="32" r="17" fill="none" stroke="url(#g1)" stroke-width="3"/>
+            <path d="M32 7v10M32 47v10M7 32h10M47 32h10" stroke="#3ddbd9" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="32" cy="32" r="3.4" fill="#3bd6a4"/>
+            <path d="M39 25l7-7" stroke="#7bd7ff" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="46" cy="18" r="2.2" fill="#7bd7ff"/>
+          </svg>
+        </div>
+        <div>
+          <h2>01 · 猎手准星</h2>
+          <p>扫描、锁定、信号。最像“交易终端”，小尺寸识别度最高。</p>
+          <span class="tag">推荐主标 / favicon</span>
+        </div>
+      </div>
+      <div class="mini" style="margin-top:14px">
+        <svg width="24" height="24" viewBox="0 0 64 64">
+          <rect x="1" y="1" width="62" height="62" rx="17" fill="#0a1220" stroke="#25405e"/>
+          <circle cx="32" cy="32" r="17" fill="none" stroke="#6cb8ff" stroke-width="4"/>
+          <path d="M32 7v10M32 47v10M7 32h10M47 32h10" stroke="#3ddbd9" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="32" cy="32" r="3.4" fill="#3bd6a4"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card">
+      <div class="card-top">
+        <div class="tile">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <defs>
+              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#f8fbff"/><stop offset="1" stop-color="#7bb7ff"/>
+              </linearGradient>
+              <linearGradient id="g2b" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0" stop-color="#3ddbd9"/><stop offset="1" stop-color="#5b8cff"/>
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="62" height="62" rx="17" fill="#0a1220" stroke="#25405e"/>
+            <path d="M12 46V18l12 13 12-13v28" fill="none" stroke="url(#g2)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M43 18v28M43 32h13M56 18v28" fill="none" stroke="url(#g2b)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M28 13l4-5 4 5" fill="none" stroke="#3bd6a4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h2>02 · MH 刃标</h2>
+          <p>字母标 + 向上箭头。最“品牌化”，适合 App icon 和周边，不依赖具体玩法。</p>
+          <span class="tag">推荐 App icon</span>
+        </div>
+      </div>
+      <div class="mini" style="margin-top:14px">
+        <svg width="24" height="24" viewBox="0 0 64 64">
+          <rect x="1" y="1" width="62" height="62" rx="17" fill="#0a1220" stroke="#25405e"/>
+          <path d="M12 46V18l12 13 12-13v28" fill="none" stroke="#dcecff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M43 18v28M43 32h13M56 18v28" fill="none" stroke="#5b8cff" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="card">
+      <div class="card-top">
+        <div class="tile">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <defs>
+              <linearGradient id="g3" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0" stop-color="#f4b942"/><stop offset="1" stop-color="#ff7a59"/>
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="62" height="62" rx="17" fill="#0a1220" stroke="#3b2e22"/>
+            <path d="M14 47L24 37M19 49v-9M31 39V24M26 31h10M43 27l7-7M41 21h10v10" fill="none" stroke="url(#g3)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="17" y="39" width="4" height="10" rx="1" fill="#f4b942"/>
+            <rect x="26" y="27" width="4" height="13" rx="1" fill="#ffb35c"/>
+            <rect x="35" y="17" width="4" height="9" rx="1" fill="#ff7a59" opacity=".8"/>
+          </svg>
+        </div>
+        <div>
+          <h2>03 · K 线箭头</h2>
+          <p>用最小蜡烛图构成上升箭头。最直观表达“交易/收益”，但略常见。</p>
+          <span class="tag">稳妥方案 / 高识别</span>
+        </div>
+      </div>
+      <div class="mini" style="margin-top:14px">
+        <svg width="24" height="24" viewBox="0 0 64 64">
+          <rect x="1" y="1" width="62" height="62" rx="17" fill="#0a1220" stroke="#3b2e22"/>
+          <path d="M14 47L43 18M33 18h10v10" fill="none" stroke="#f4b942" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M21 49V40M28 44v-8M35 39v-6" stroke="#ff9f5c" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="card">
+      <div class="card-top">
+        <div class="tile">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <defs>
+              <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#a18dff"/><stop offset="1" stop-color="#3ddbd9"/>
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="62" height="62" rx="17" fill="#0b1627" stroke="#344a69"/>
+            <path d="M32 4.5C20.8 4.5 12.5 13.4 12.5 25.4L14.5 52.5L24 46.5L32 51L40 46.5L49.5 52.5L51.5 25.4C51.5 13.4 43.2 4.5 32 4.5Z" fill="#0b1627" stroke="url(#g4)" stroke-width="2.8" stroke-linejoin="round"/>
+            <path d="M32 13.5C25.3 13.5 20.8 18.8 20.8 25.8L22.5 38.5L32 44.5L41.5 38.5L43.2 25.8C43.2 18.8 38.7 13.5 32 13.5Z" fill="#06101c" stroke="#3ddbd9" stroke-width="1.1" opacity=".55"/>
+            <path d="M21.5 23.5L29.5 20.8M42.5 23.5L34.5 20.8" fill="none" stroke="url(#g4)" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M23.5 27.6L29.4 29.4M40.5 27.6L34.6 29.4" stroke="#42f2e4" stroke-width="3.1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h2>04 · 猎手兜帽 · 最终</h2>
+          <p>最有角色感，适合社区、周边和 meme 品牌；但小尺寸和“专业交易”之间要取舍。</p>
+          <span class="tag">已选方向</span>
+        </div>
+      </div>
+      <div class="mini" style="margin-top:14px">
+        <svg width="24" height="24" viewBox="0 0 64 64">
+          <rect x="1" y="1" width="62" height="62" rx="17" fill="#0b1627" stroke="#344a69"/>
+          <path d="M32 4.5C20.8 4.5 12.5 13.4 12.5 25.4L14.5 52.5L24 46.5L32 51L40 46.5L49.5 52.5L51.5 25.4C51.5 13.4 43.2 4.5 32 4.5Z" fill="#0b1627" stroke="url(#g4)" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M21.5 23.5L29.5 20.8M42.5 23.5L34.5 20.8" fill="none" stroke="#8d7dff" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M23.5 27.6L29.4 29.4M40.5 27.6L34.6 29.4" stroke="#42f2e4" stroke-width="3.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="card">
+      <div class="card-top">
+        <div class="tile">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <defs>
+              <linearGradient id="g5" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0" stop-color="#3bd6a4"/><stop offset="1" stop-color="#5ba3ff"/>
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="62" height="62" rx="17" fill="#0a1220" stroke="#25405e"/>
+            <path d="M9 35h9l4-10 7 20 5-12 4 6h17" fill="none" stroke="url(#g5)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="14" y="43" width="6" height="9" rx="2" fill="#3bd6a4" opacity=".8"/>
+            <rect x="25" y="38" width="6" height="14" rx="2" fill="#3ddbd9" opacity=".8"/>
+            <rect x="36" y="32" width="6" height="20" rx="2" fill="#5ba3ff" opacity=".85"/>
+            <rect x="47" y="25" width="6" height="27" rx="2" fill="#8d7dff" opacity=".85"/>
+          </svg>
+        </div>
+        <div>
+          <h2>05 · 脉冲 / 流动性</h2>
+          <p>数据感最强，适合“分析终端”；但容易和普通 analytics 产品混淆。</p>
+          <span class="tag">数据型方案</span>
+        </div>
+      </div>
+      <div class="mini" style="margin-top:14px">
+        <svg width="24" height="24" viewBox="0 0 64 64">
+          <rect x="1" y="1" width="62" height="62" rx="17" fill="#0a1220" stroke="#25405e"/>
+          <path d="M10 37h9l4-9 7 18 5-10 4 5h15" fill="none" stroke="#3ddbd9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="card">
+      <div class="card-top">
+        <div class="tile">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <rect x="1" y="1" width="62" height="62" rx="17" fill="#0a1220" stroke="#25405e"/>
+            <path d="M13 45L27 19l8 13 6-8 10 21" fill="none" stroke="#e8eef8" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M13 51h38" stroke="#3ddbd9" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="47" cy="17" r="4" fill="#f4b942"/>
+          </svg>
+        </div>
+        <div>
+          <h2>06 · M 信号峰</h2>
+          <p>用 M 形线构成山峰/信号，和 MEMEHUNTER 首字母有关，简单、冷静、耐看。</p>
+          <span class="tag">极简备选</span>
+        </div>
+      </div>
+      <div class="mini" style="margin-top:14px">
+        <svg width="24" height="24" viewBox="0 0 64 64">
+          <rect x="1" y="1" width="62" height="62" rx="17" fill="#0a1220" stroke="#25405e"/>
+          <path d="M13 45L27 19l8 13 6-8 10 21" fill="none" stroke="#e8eef8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="47" cy="17" r="4" fill="#f4b942"/>
+        </svg>
+      </div>
+    </section>
+  </div>
+
+  <div class="notes">
+    <div>
+      <h3>我的排序</h3>
+      <ul>
+        <li><b>主标：01 猎手准星</b> — 最像交易终端，16px 仍可读，和当前蓝/青 UI 最一致。</li>
+        <li><b>App icon：02 MH 刃标</b> — 更像品牌，不依赖行情元素，适合 512px。</li>
+        <li><b>社区/周边：04 猎手兜帽</b> — 有角色感，但不建议做主 favicon。</li>
+        <li>03/05 偏“通用交易/数据”，安全但不够有记忆点。</li>
+      </ul>
+    </div>
+    <div>
+      <h3>当前图标</h3>
+      <div class="current">
+        <div class="tile">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <path d="M4 18V8.5L12 4l8 4.5V18" stroke="#dce8f7" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="M8 18v-6l4-2.2 4 2.2v6" stroke="#dce8f7" stroke-width="1.7" stroke-linejoin="round"/>
+            <circle cx="12" cy="14" r="1.4" fill="#dce8f7"/>
+          </svg>
+        </div>
+        <div><b style="color:#dce8f7">当前 house/terminal</b><p style="margin:2px 0 0;color:#8b98ac;font-size:11px">像“首页 / dashboard”，不像“猎手 / 信号 / Solana 交易”。</p></div>
+      </div>
+      <p style="font-size:11px;line-height:1.6;margin:12px 0 0;color:#6f7f96">建议：主标用准星，App icon 用 MH 刃标；头像/周边再用兜帽。这样“专业”和“角色感”分开。</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="rim" x1="12" y1="8" x2="116" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c0b4ff"/>
+      <stop offset=".5" stop-color="#6caeff"/>
+      <stop offset="1" stop-color="#3ff0e6"/>
+    </linearGradient>
+    <linearGradient id="tile" x1="8" y1="8" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#14233a"/>
+      <stop offset="1" stop-color="#080f1a"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="2" y="2" width="124" height="124" rx="34" fill="url(#tile)" stroke="#344a69" stroke-width="2.6"/>
+  <path d="M64 9C41.6 9 25 26.8 25 50.8L29 105L48 93L64 102L80 93L99 105L103 50.8C103 26.8 86.4 9 64 9Z" fill="#0b1627" stroke="url(#rim)" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M64 27C50.6 27 41.6 37.6 41.6 51.6L45 77L64 89L83 77L86.4 51.6C86.4 37.6 77.4 27 64 27Z" fill="#06101c" stroke="#3ddbd9" stroke-width="2.2" opacity=".55"/>
+  <path d="M42 46.4L64 37.2L86 46.4" fill="none" stroke="url(#rim)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M47 55.2L58.8 58.8M81 55.2L69.2 58.8" stroke="#42f2e4" stroke-width="6.2" stroke-linecap="round" filter="url(#glow)"/>
+  <path d="M44 63L55 80M84 63L73 80" stroke="#8d7dff" stroke-width="2.2" stroke-linecap="round" opacity=".3"/>
+</svg>

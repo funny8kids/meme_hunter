@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="rim" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c0b4ff"/>
+      <stop offset=".5" stop-color="#6caeff"/>
+      <stop offset="1" stop-color="#3ff0e6"/>
+    </linearGradient>
+    <linearGradient id="tile" x1="4" y1="4" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#14233a"/>
+      <stop offset="1" stop-color="#080f1a"/>
+    </linearGradient>
+    <filter id="eyeGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="1" y="1" width="62" height="62" rx="17" fill="url(#tile)" stroke="#344a69" stroke-width="1.4"/>
+  <path d="M32 4.5C20.8 4.5 12.5 13.4 12.5 25.4L14.5 52.5L24 46.5L32 51L40 46.5L49.5 52.5L51.5 25.4C51.5 13.4 43.2 4.5 32 4.5Z" fill="#0b1627" stroke="url(#rim)" stroke-width="2.8" stroke-linejoin="round"/>
+  <path d="M32 13.5C25.3 13.5 20.8 18.8 20.8 25.8L22.5 38.5L32 44.5L41.5 38.5L43.2 25.8C43.2 18.8 38.7 13.5 32 13.5Z" fill="#06101c" stroke="#3ddbd9" stroke-width="1.1" opacity=".55"/>
+  <path d="M21.5 23.5L29.5 20.8M42.5 23.5L34.5 20.8" fill="none" stroke="url(#rim)" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M23.5 27.6L29.4 29.4M40.5 27.6L34.6 29.4" stroke="#42f2e4" stroke-width="3.1" stroke-linecap="round" filter="url(#eyeGlow)"/>
+  <path d="M22 31.5L27.5 40M42 31.5L36.5 40" stroke="#8d7dff" stroke-width="1.1" stroke-linecap="round" opacity=".3"/>
+  <path d="M22 13.2C25 8.2 28.5 6 32 6" fill="none" stroke="#c0b4ff" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
+</svg>

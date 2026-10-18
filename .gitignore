@@ -1,0 +1,48 @@
+# runtime data
+data/*
+!data/.gitkeep
+!data/reports/
+!data/reports/.gitkeep
+!data/shots/
+!data/shots/.gitkeep
+data/shots/*
+!data/shots/.gitkeep
+
+*.db
+*.db-wal
+*.db-shm
+*.log
+*.pid
+data/archive-*/
+data/jobs/
+data/HALT
+
+# secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+id.json
+live-key.json
+
+# dependencies
+node_modules/
+vendor/**/node_modules/
+vendor/**/.env
+
+# build / cache
+dist/
+coverage/
+.cache/
+.tmp/
+*.tsbuildinfo
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# generated reports (keep the directory, not the data)
+data/reports/*.json

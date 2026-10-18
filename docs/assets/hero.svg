@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07101c"/>
+      <stop offset=".55" stop-color="#0a1424"/>
+      <stop offset="1" stop-color="#080b12"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6caeff"/>
+      <stop offset=".55" stop-color="#3ddbd9"/>
+      <stop offset="1" stop-color="#a495ff"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c0b4ff"/>
+      <stop offset=".5" stop-color="#6caeff"/>
+      <stop offset="1" stop-color="#3ff0e6"/>
+    </linearGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#ffffff" stroke-opacity=".035" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientTransform="translate(160 100) rotate(35) scale(420 260)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4f9dff" stop-opacity=".19"/>
+      <stop offset="1" stop-color="#4f9dff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientTransform="translate(1030 70) rotate(150) scale(420 260)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3ddbd9" stop-opacity=".11"/>
+      <stop offset="1" stop-color="#3ddbd9" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="360" rx="28" fill="url(#bg)"/>
+  <rect width="1200" height="360" rx="28" fill="url(#grid)"/>
+  <rect width="1200" height="360" rx="28" fill="url(#glow1)"/>
+  <rect width="1200" height="360" rx="28" fill="url(#glow2)"/>
+  <rect x="1.5" y="1.5" width="1197" height="357" rx="27" fill="none" stroke="#ffffff" stroke-opacity=".08"/>
+
+  <!-- brand mark -->
+  <g transform="translate(70 86)">
+    <rect width="152" height="152" rx="42" fill="#0b1627" stroke="#344a69" stroke-width="2"/>
+    <path d="M76 8C48 8 27 29.8 27 59.4L31 128L55 113L76 125L97 113L121 128L125 59.4C125 29.8 104 8 76 8Z" fill="#0b1627" stroke="url(#rim)" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M76 31C59.3 31 48.3 44 48.3 61L52.5 92L76 106L99.5 92L103.7 61C103.7 44 92.7 31 76 31Z" fill="#06101c" stroke="#3ddbd9" stroke-width="2.6" opacity=".55"/>
+    <path d="M51 56L76 45L101 56" fill="none" stroke="url(#rim)" stroke-width="5.6" stroke-linecap="round"/>
+    <path d="M56 66L70 70M96 66L82 70" stroke="#42f2e4" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <text x="270" y="120" fill="#f4f8ff" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" font-weight="600" letter-spacing="6">MEME HUNTER</text>
+  <text x="270" y="174" fill="#f4f8ff" font-family="Inter, 'Segoe UI', sans-serif" font-size="54" font-weight="800" letter-spacing="-1.5">Research first.</text>
+  <text x="270" y="228" fill="url(#accent)" font-family="Inter, 'Segoe UI', sans-serif" font-size="54" font-weight="800" letter-spacing="-1.5">Trade only with edge.</text>
+  <text x="272" y="268" fill="#91a1b8" font-family="Inter, 'Segoe UI', sans-serif" font-size="16">Solana meme intelligence · validation · forward shadow · gated execution</text>
+
+  <g font-family="Inter, 'Segoe UI', sans-serif" font-size="12">
+    <rect x="272" y="292" width="116" height="30" rx="15" fill="#3bd6a4" fill-opacity=".08" stroke="#3bd6a4" stroke-opacity=".28"/>
+    <text x="330" y="312" text-anchor="middle" fill="#b8f7e4">OBSERVE</text>
+    <rect x="398" y="292" width="104" height="30" rx="15" fill="#5ba3ff" fill-opacity=".08" stroke="#5ba3ff" stroke-opacity=".28"/>
+    <text x="450" y="312" text-anchor="middle" fill="#b9d7ff">PAPER</text>
+    <rect x="512" y="292" width="118" height="30" rx="15" fill="#a495ff" fill-opacity=".08" stroke="#a495ff" stroke-opacity=".28"/>
+    <text x="571" y="312" text-anchor="middle" fill="#d8d0ff">SHADOW</text>
+    <rect x="640" y="292" width="104" height="30" rx="15" fill="#ff647c" fill-opacity=".06" stroke="#ff647c" stroke-opacity=".22"/>
+    <text x="692" y="312" text-anchor="middle" fill="#ffbdc8">LIVE GATED</text>
+  </g>
+
+  <!-- small chart motif -->
+  <g opacity=".9" transform="translate(880 100)">
+    <rect width="250" height="150" rx="18" fill="#07101a" fill-opacity=".72" stroke="#ffffff" stroke-opacity=".07"/>
+    <path d="M0 1H250M0 50H250M0 100H250" stroke="#ffffff" stroke-opacity=".035"/>
+    <path d="M20 112L45 96L70 103L95 72L120 84L145 58L170 62L195 38L222 45" fill="none" stroke="#3ddbd9" stroke-width="2.4"/>
+    <path d="M20 112L45 96L70 103L95 72L120 84L145 58L170 62L195 38L222 45V138H20Z" fill="#3ddbd9" fill-opacity=".07"/>
+    <circle cx="222" cy="45" r="4" fill="#3bd6a4"/>
+    <text x="20" y="24" fill="#8c9cb3" font-family="ui-monospace, monospace" font-size="10">FORWARD EQUITY / NET OF COSTS</text>
+  </g>
+</svg>

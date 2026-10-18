@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Meme Hunter — Solana meme 币实时终端、钱包情报、DEX 迁移市场与策略验证。" />
+    <title>Meme Hunter · Solana Meme Terminal</title>
+    <link rel="icon" href="/favicon.svg?v=19" type="image/svg+xml" />
+    <link rel="stylesheet" href="/style.css?v=24" />
+    <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand" title="Meme Hunter">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none">
+              <defs>
+                <linearGradient id="brandHood" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#c0b4ff"/>
+                  <stop offset=".5" stop-color="#6caeff"/>
+                  <stop offset="1" stop-color="#3ff0e6"/>
+                </linearGradient>
+                <linearGradient id="brandTile" x1="4" y1="4" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#14233a"/>
+                  <stop offset="1" stop-color="#080f1a"/>
+                </linearGradient>
+              </defs>
+              <rect x="1" y="1" width="62" height="62" rx="17" fill="url(#brandTile)" stroke="#344a69" stroke-width="1.4"/>
+              <path d="M32 4.5C20.8 4.5 12.5 13.4 12.5 25.4L14.5 52.5L24 46.5L32 51L40 46.5L49.5 52.5L51.5 25.4C51.5 13.4 43.2 4.5 32 4.5Z" fill="#0b1627" stroke="url(#brandHood)" stroke-width="2.8" stroke-linejoin="round"/>
+              <path d="M32 13.5C25.3 13.5 20.8 18.8 20.8 25.8L22.5 38.5L32 44.5L41.5 38.5L43.2 25.8C43.2 18.8 38.7 13.5 32 13.5Z" fill="#06101c" stroke="#3ddbd9" stroke-width="1.1" opacity=".55"/>
+              <path d="M21.5 23.5L29.5 20.8M42.5 23.5L34.5 20.8" fill="none" stroke="url(#brandHood)" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M23.5 27.6L29.4 29.4M40.5 27.6L34.6 29.4" stroke="#42f2e4" stroke-width="3.1" stroke-linecap="round"/>
+              <path d="M22 31.5L27.5 40M42 31.5L36.5 40" stroke="#8d7dff" stroke-width="1.1" stroke-linecap="round" opacity=".3"/>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <b>MEME<span>HUNTER</span></b>
+            <small>SOLANA TERMINAL</small>
+          </span>
+        </div>
+
+        <nav class="main-nav" aria-label="主导航">
+          <button class="nav-btn active" data-view="terminal">终端</button>
+          <button class="nav-btn" data-view="wallets">钱包</button>
+          <button class="nav-btn" data-view="dex">DEX</button>
+          <button class="nav-btn" data-view="live">执行</button>
+          <button class="nav-btn" data-view="validation">验证</button>
+          <button class="nav-btn" data-view="console">控制台</button>
+        </nav>
+
+        <div class="global-search" id="global-search">
+          <span class="search-icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="4.8" stroke="currentColor" stroke-width="1.6"/><path d="m12.2 12.2 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          <input id="search-input" type="search" placeholder="搜索代币 / 合约地址" autocomplete="off" spellcheck="false" aria-label="搜索代币" />
+          <kbd>/</kbd>
+          <div class="search-results" id="search-results" hidden></div>
+        </div>
+
+        <div class="header-right">
+          <button class="rail-toggle" id="rail-toggle" type="button" aria-label="打开情报面板" aria-expanded="false">
+            <span class="rail-dot"></span><span>情报</span>
+          </button>
+          <div class="status-pill" id="live-status" data-state="loading">
+            <i></i><span>连接中</span>
+          </div>
+          <div class="equity-pill" title="当前未平仓位的成本与最新市值（来自 positions.db）">
+            <span>持仓估值</span>
+            <b id="hdr-equity">—</b>
+            <em id="hdr-equity-pct"></em>
+          </div>
+          <span class="clock mono" id="clock">--:--:--</span>
+        </div>
+      </header>
+
+      <div class="rail-backdrop" id="rail-backdrop" hidden></div>
+
+      <div class="market-tape" id="market-tape" aria-label="市场行情滚动">
+        <div class="tape-track" id="tape-track"><span class="tape-empty">等待行情…</span></div>
+      </div>
+
+      <!-- ===================== 终端视图 ===================== -->
+      <div class="view view-terminal active" id="view-terminal">
+        <div class="kpi-strip">
+          <div class="kpi"><span>代币</span><b id="kpi-tokens">—</b></div>
+          <div class="kpi"><span>成交笔数</span><b id="kpi-trades">—</b></div>
+          <div class="kpi"><span>成交额 · SOL</span><b id="kpi-volume">—</b></div>
+          <div class="kpi"><span>成交/分</span><b id="kpi-rate">—</b></div>
+          <div class="kpi"><span>信号</span><b id="kpi-signals">—</b></div>
+          <div class="kpi"><span>持仓</span><b id="kpi-positions">—</b></div>
+          <div class="kpi kpi-wide"><span>1H 买/卖</span><b id="kpi-buysell">—</b></div>
+          <div class="kpi kpi-wide"><span>策略结论</span><b id="kpi-verdict" class="verdict-text">—</b></div>
+        </div>
+
+        <main class="workspace">
+          <!-- 左列：市场发现 -->
+          <aside class="workspace-col col-left">
+            <section class="panel market-panel">
+              <div class="panel-head">
+                <div class="panel-title">
+                  <h2>市场</h2>
+                  <span class="panel-sub" id="market-count">—</span>
+                </div>
+                <div class="segmented" id="market-tabs" role="tablist" aria-label="市场视图">
+                  <button class="active" data-tab="hot" role="tab">热门</button>
+                  <button data-tab="new" role="tab">新币</button>
+                  <button data-tab="soon" role="tab">临近毕业</button>
+                  <button data-tab="done" role="tab">已毕业</button>
+                  <button data-tab="watch" role="tab">自选</button>
+                </div>
+              </div>
+
+              <div class="market-toolbar">
+                <label class="select-wrap">
+                  <span>排序</span>
+                  <select id="market-sort" aria-label="排序">
+                    <option value="volume">成交额</option>
+                    <option value="change">涨幅</option>
+                    <option value="mcap">市值</option>
+                    <option value="age">新到</option>
+                    <option value="trades">成交笔数</option>
+                    <option value="progress">曲线进度</option>
+                  </select>
+                </label>
+                <div class="market-legend">
+                  <span>市值</span><span>涨跌</span>
+                </div>
+              </div>
+
+              <div class="market-list" id="market-list">
+                <div class="skeleton-list" aria-hidden="true">
+                  <div class="skeleton-row"></div><div class="skeleton-row"></div><div class="skeleton-row"></div>
+                  <div class="skeleton-row"></div><div class="skeleton-row"></div>
+                </div>
+              </div>
+
+              <div class="panel-foot market-foot">
+                <span id="market-hint">—</span>
+                <div class="pager">
+                  <button id="page-prev" aria-label="上一页">‹</button>
+                  <span class="mono" id="page-label">1 / 1</span>
+                  <button id="page-next" aria-label="下一页">›</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel signals-panel">
+              <div class="panel-head">
+                <div class="panel-title">
+                  <h2>信号流</h2>
+                  <span class="panel-sub" id="signal-count">—</span>
+                </div>
+                <div class="segmented mini" id="signal-tiers">
+                  <button class="active" data-tier="">全部</button>
+                  <button data-tier="A">A</button>
+                  <button data-tier="B">B</button>
+                </div>
+              </div>
+              <div class="signal-feed" id="signal-feed">
+                <div class="empty-state">暂无信号</div>
+              </div>
+            </section>
+          </aside>
+
+          <!-- 中列：图表 + 仓位/成交 -->
+          <section class="workspace-col col-center">
+            <section class="panel token-panel" id="token-panel">
+              <div class="token-head" id="token-head">
+                <div class="token-ident">
+                  <div class="token-avatar lg" id="token-avatar">?</div>
+                  <div class="token-title">
+                    <div class="token-line">
+                      <h1 id="token-symbol">选择代币</h1>
+                      <span class="token-name" id="token-name">从左侧市场开始</span>
+                      <span class="tag curve" id="token-curve" hidden>CURVE</span>
+                      <span class="tag migrated" id="token-migrated" hidden>MIGRATED</span>
+                      <button class="risk-pill token-risk" id="token-risk-badge" type="button" title="查看代币情报">RISK —</button>
+                    </div>
+                    <div class="token-address">
+                      <span class="mono" id="token-mint">—</span>
+                      <button class="icon-btn" id="watch-toggle" title="加入自选" aria-label="加入自选">☆</button>
+                      <button class="icon-btn" id="copy-mint" title="复制合约地址" aria-label="复制合约地址">
+                        <svg viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="8" height="8" rx="1.4" stroke="currentColor" stroke-width="1.2"/><path d="M3 10.5V3.5A1.5 1.5 0 0 1 4.5 2h7" stroke="currentColor" stroke-width="1.2"/></svg>
+                      </button>
+                      <span class="dot-sep">·</span>
+                      <span id="token-age">—</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="token-price-block">
+                  <div class="token-price" id="token-price">—</div>
+                  <div class="token-change" id="token-change">—</div>
+                </div>
+
+                <div class="token-stats">
+                  <div><span>市值</span><b id="stat-mcap">—</b></div>
+                  <div><span>曲线深度</span><b id="stat-depth">—</b></div>
+                  <div><span>1H 成交</span><b id="stat-volume">—</b></div>
+                  <div><span>1H 买/卖</span><b id="stat-buysell">—</b></div>
+                  <div><span>峰值</span><b id="stat-peak">—</b></div>
+                  <div><span>曲线进度</span><b id="stat-progress">—</b></div>
+                </div>
+              </div>
+
+              <div class="progress-line" aria-hidden="true"><i id="progress-fill"></i></div>
+
+              <div class="chart-toolbar">
+                <div class="chart-tabs" id="resolution-tabs">
+                  <button data-res="1m" class="active">1m</button>
+                  <button data-res="5m">5m</button>
+                  <button data-res="15m">15m</button>
+                  <button data-res="1h">1h</button>
+                </div>
+                <div class="chart-tools">
+                  <button class="ghost-btn active" id="chart-candle">蜡烛</button>
+                  <button class="ghost-btn" id="chart-line">折线</button>
+                  <span class="divider"></span>
+                  <button class="ghost-btn active" id="chart-price">价格</button>
+                  <button class="ghost-btn" id="chart-mcap">市值</button>
+                </div>
+              </div>
+
+              <div class="chart-shell" id="chart-shell">
+                <div class="chart-legend" id="chart-legend">
+                  <span>O <b>—</b></span><span>H <b>—</b></span><span>L <b>—</b></span><span>C <b>—</b></span><span>V <b>—</b></span>
+                </div>
+                <canvas id="chart"></canvas>
+                <div class="chart-tooltip" id="chart-tooltip" hidden></div>
+                <div class="chart-empty" id="chart-empty" hidden>
+                  <b>暂无 K 线</b>
+                  <span>该代币还没有可用的成交数据</span>
+                </div>
+              </div>
+
+              <div class="token-tags" id="token-tags">
+                <span class="tag muted">安全字段未接入：不伪造「安全」</span>
+              </div>
+            </section>
+
+            <div class="lower-grid">
+              <section class="panel positions-panel">
+                <div class="panel-head">
+                  <div class="panel-title"><h2>持仓</h2><span class="panel-sub" id="positions-count">—</span></div>
+                  <div class="panel-meta mono" id="positions-total">—</div>
+                </div>
+                <div class="table-wrap">
+                  <table class="data-table">
+                    <thead>
+                      <tr><th>代币</th><th class="r">成本</th><th class="r">入场市值</th><th class="r">当前</th><th class="r">盈亏</th><th class="r">峰值</th><th class="r">持有</th></tr>
+                    </thead>
+                    <tbody id="positions-body">
+                      <tr><td colspan="7" class="empty-cell">空仓</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section class="panel trades-panel">
+                <div class="panel-head">
+                  <div class="panel-title"><h2>最近成交</h2><span class="panel-sub" id="trades-count">—</span></div>
+                  <span class="panel-meta mono" id="trades-mint">—</span>
+                </div>
+                <div class="table-wrap">
+                  <table class="data-table compact">
+                    <thead>
+                      <tr><th>时间</th><th>方向</th><th class="r">价格</th><th class="r">SOL</th><th class="r">市值</th><th>钱包</th></tr>
+                    </thead>
+                    <tbody id="trades-body">
+                      <tr><td colspan="6" class="empty-cell">选择代币查看成交</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <!-- 右列：信号 / 测算 / 验证 -->
+          <aside class="workspace-col col-right" id="right-rail">
+            <button class="rail-close" id="rail-close" type="button" aria-label="关闭情报面板">×</button>
+            <section class="panel signal-card" id="signal-card">
+              <div class="panel-head">
+                <div class="panel-title"><h2>评分 / 证据</h2><span class="panel-sub" id="signal-fresh">—</span></div>
+                <span class="version-pill mono" id="strategy-version">—</span>
+              </div>
+              <div class="signal-card-body" id="signal-card-body">
+                <div class="empty-state">暂无信号</div>
+              </div>
+            </section>
+
+            <section class="panel calc-panel">
+              <div class="panel-head">
+                <div class="panel-title"><h2>纸面测算</h2><span class="panel-sub">仅估算，不发送交易</span></div>
+                <span class="tag muted">PAPER</span>
+              </div>
+              <div class="calc-body">
+                <div class="calc-amount">
+                  <label for="calc-size">买入金额</label>
+                  <div class="amount-input">
+                    <input id="calc-size" type="number" min="0.001" step="0.01" value="0.1" inputmode="decimal" />
+                    <span>SOL</span>
+                  </div>
+                  <div class="preset-row" id="calc-presets">
+                    <button data-size="0.05">0.05</button>
+                    <button data-size="0.1" class="active">0.1</button>
+                    <button data-size="0.5">0.5</button>
+                    <button data-size="1">1</button>
+                  </div>
+                </div>
+                <div class="calc-result">
+                  <div><span>预计获得</span><b id="calc-tokens">—</b></div>
+                  <div><span>价格影响</span><b id="calc-impact">—</b></div>
+                  <div><span>手续费(1%)</span><b id="calc-fee">—</b></div>
+                  <div><span>额外滑点(1.5%)</span><b id="calc-slip">—</b></div>
+                  <div><span>估算往返成本</span><b id="calc-roundtrip">—</b></div>
+                  <div><span>占纸面权益</span><b id="calc-weight">—</b></div>
+                </div>
+                <p class="calc-note" id="calc-note">选择代币后，用当前曲线储备估算。真实成交还会受区块竞争、MEV 和 RPC 影响。</p>
+              </div>
+            </section>
+
+            <section class="panel validation-mini" id="validation-mini">
+              <div class="panel-head">
+                <div class="panel-title"><h2>策略验证</h2><span class="panel-sub" id="validation-fresh">—</span></div>
+                <button class="link-btn" id="open-validation">完整报告 →</button>
+              </div>
+              <div id="validation-mini-body">
+                <div class="empty-state">尚未运行验证</div>
+              </div>
+            </section>
+
+            <section class="panel token-intel" id="token-intel">
+              <div class="panel-head">
+                <div class="panel-title"><h2>代币情报</h2><span class="panel-sub" id="intel-fresh">未补全</span></div>
+                <span class="risk-pill" id="intel-risk-pill">—</span>
+              </div>
+              <div class="intel-tabs" id="intel-tabs">
+                <button class="active" data-intel="risk">风险</button>
+                <button data-intel="holders">持有者</button>
+                <button data-intel="dev">Dev</button>
+                <button data-intel="traders">Traders</button>
+                <button data-intel="social">社交</button>
+              </div>
+              <div class="intel-body" id="intel-body">
+                <div class="empty-state">选择代币后加载</div>
+              </div>
+            </section>
+          </aside>
+        </main>
+      </div>
+
+      <!-- ===================== 钱包视图 ===================== -->
+      <div class="view view-wallets" id="view-wallets">
+        <div class="page-shell" role="main">
+          <div class="page-head">
+            <div>
+              <div class="eyebrow">WALLET INTELLIGENCE · OOS 30D</div>
+              <h1>钱包画像</h1>
+            </div>
+            <div class="page-actions" id="wallet-page-actions">
+              <input id="wallet-search" class="page-input" placeholder="搜索钱包地址" autocomplete="off" />
+              <select id="wallet-sort" class="page-select" aria-label="钱包排序">
+                <option value="score">按评分</option>
+                <option value="copyability">按可复制性</option>
+                <option value="pnl">按实现盈亏</option>
+                <option value="win_rate">按胜率</option>
+                <option value="oos">按 OOS 胜率</option>
+                <option value="trades">按交易数</option>
+                <option value="recent">按最近活跃</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mode-tabs" id="wallet-modes" role="tablist" aria-label="钱包视图">
+            <button class="active" data-wmode="ranking" role="tab" aria-selected="true">钱包榜单</button>
+            <button data-wmode="smart" role="tab" aria-selected="false">聪明钱动态</button>
+          </div>
+
+          <div class="filter-chips" id="wallet-filters">
+            <button class="active" data-label="">全部</button>
+            <button data-label="smart_money">Smart Money</button>
+            <button data-label="copyable">可复制</button>
+            <button data-label="sniper">Sniper</button>
+            <button data-label="dev">Dev</button>
+            <button data-label="insufficient">样本不足</button>
+            <button data-label="unprofitable">亏损</button>
+          </div>
+
+          <section class="panel wallet-table-panel" data-wpanel="smart" hidden>
+            <div class="panel-head">
+              <div class="panel-title"><h2>聪明钱动态</h2><span class="panel-sub" id="smart-feed-count">—</span></div>
+              <div class="segmented mini" id="smart-side">
+                <button class="active" data-side="">全部</button>
+                <button data-side="buy">买入</button>
+                <button data-side="sell">卖出</button>
+              </div>
+            </div>
+            <div class="table-wrap" style="max-height:324px">
+              <table class="data-table compact">
+                <thead><tr><th>时间</th><th>钱包</th><th>标签</th><th>代币</th><th>方向</th><th class="r">SOL</th><th class="r">市值</th><th class="r">风险</th></tr></thead>
+                <tbody id="smart-feed-body"><tr><td colspan="8" class="empty-cell">加载中…</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel wallet-table-panel" data-wpanel="ranking">
+            <div class="panel-head">
+              <div class="panel-title"><h2>钱包列表</h2><span class="panel-sub" id="wallet-count">—</span></div>
+              <span class="panel-sub">OOS 30D</span>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table wallet-table">
+                <thead>
+                  <tr>
+                    <th>#</th><th>钱包</th><th>标签</th><th class="r">交易</th><th class="r">代币</th>
+                    <th class="r">实现盈亏</th><th class="r">胜率</th><th class="r">平均峰值</th>
+                    <th class="r">OOS 胜率</th><th class="r">持仓中位</th><th class="r">可复制</th><th class="r">评分</th>
+                  </tr>
+                </thead>
+                <tbody id="wallet-body"><tr><td colspan="12" class="empty-cell">加载中…</td></tr></tbody>
+              </table>
+            </div>
+            <div class="panel-foot">
+              <span id="wallet-hint">—</span>
+              <div class="pager">
+                <button id="wallet-prev">‹</button>
+                <span class="mono" id="wallet-page">1 / 1</span>
+                <button id="wallet-next">›</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel wallet-detail-panel" id="wallet-detail-panel" data-wpanel="ranking">
+            <div class="panel-head">
+              <div class="panel-title"><h2>钱包详情</h2><span class="panel-sub" id="wallet-detail-title">点击上方钱包</span></div>
+              <span class="panel-sub" id="wallet-detail-meta"></span>
+            </div>
+            <div id="wallet-detail-body" class="wallet-detail-body">
+              <div class="empty-state">选择钱包查看最近交易</div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ===================== 控制台视图 ===================== -->
+      <div class="view view-console" id="view-console">
+        <div class="page-shell" role="main">
+          <div class="page-head">
+            <div>
+              <div class="eyebrow">SYSTEM CONSOLE</div>
+              <h1>控制台</h1>
+            </div>
+            <div class="page-actions">
+              <span class="status-pill" id="console-halt-pill" data-state="live"><i></i><span>HALT OFF</span></span>
+              <button class="primary-btn" id="console-refresh">刷新</button>
+            </div>
+          </div>
+
+          <div class="console-grid">
+            <section class="panel console-card">
+              <div class="panel-head"><h2>系统</h2><span class="panel-sub" id="console-uptime">—</span></div>
+              <div class="kv-grid" id="console-system"><div class="empty-state">—</div></div>
+            </section>
+            <section class="panel console-card">
+              <div class="panel-head"><h2>数据</h2><span class="panel-sub">SQLite</span></div>
+              <div class="kv-grid" id="console-data"><div class="empty-state">—</div></div>
+            </section>
+            <section class="panel console-card">
+              <div class="panel-head"><h2>采集 / 运行器</h2><span class="panel-sub" id="console-runner">—</span></div>
+              <div class="kv-grid" id="console-health"><div class="empty-state">—</div></div>
+            </section>
+          </div>
+
+          <section class="panel console-actions-panel">
+            <div class="panel-head"><h2>操作</h2><span class="panel-sub" id="console-active-job">—</span></div>
+            <div class="console-actions" id="console-actions">
+              <div class="action-group">
+                <span class="action-label">研究</span>
+                <div class="action-row">
+                  <button data-action="validate">运行验证</button>
+                  <button data-action="experiments">策略实验</button>
+                  <button data-action="analyze">结局分析</button>
+                </div>
+              </div>
+              <div class="action-group">
+                <span class="action-label">数据</span>
+                <div class="action-row">
+                  <button data-action="enrich">补全情报</button>
+                  <button data-action="candles">重建 1m K线</button>
+                  <button data-action="wallets">重算钱包画像</button>
+                </div>
+              </div>
+              <div class="action-group">
+                <span class="action-label">交易</span>
+                <div class="action-row">
+                  <button data-action="paper-start" class="safe">启动纸面</button>
+                  <button data-action="paper-stop" class="warn">停止纸面</button>
+                </div>
+              </div>
+              <div class="action-group danger-group">
+                <span class="action-label">紧急</span>
+                <div class="action-row">
+                  <button data-action="halt" class="danger">HALT</button>
+                  <button data-action="clear-halt">解除 HALT</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel console-card">
+            <div class="panel-head"><h2>Forward Shadow</h2><span class="panel-sub" id="console-shadow-fresh">—</span></div>
+            <div class="exp-list" id="console-shadow"><div class="empty-state">shadow 未运行</div></div>
+          </section>
+
+          <section class="panel console-card">
+            <div class="panel-head"><h2>策略实验</h2><span class="panel-sub" id="console-exp-verdict">—</span></div>
+            <div class="exp-list" id="console-experiments"><div class="empty-state">运行策略实验</div></div>
+          </section>
+
+          <div class="console-grid two">
+            <section class="panel console-card">
+              <div class="panel-head"><h2>后台任务</h2><span class="panel-sub" id="console-job-count">—</span></div>
+              <div class="job-list" id="console-jobs"><div class="empty-state">—</div></div>
+              <div class="job-log" id="console-job-log">运行任务后显示日志</div>
+            </section>
+            <section class="panel console-card">
+              <div class="panel-head"><h2>实时事件</h2><span class="panel-sub" id="console-stream-status">SSE</span></div>
+              <div class="event-list" id="console-events"><div class="empty-state">连接中…</div></div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== DEX 视图 ===================== -->
+      <div class="view view-dex" id="view-dex">
+        <div class="page-shell" role="main">
+          <div class="page-head">
+            <div>
+              <div class="eyebrow">POST-MIGRATION · DEXSCREENER</div>
+              <h1>迁移后市场</h1>
+            </div>
+            <div class="page-actions">
+              <select id="dex-sort" class="page-select" aria-label="DEX 排序">
+                <option value="liquidity">按流动性</option>
+                <option value="volume">按 24h 成交量</option>
+                <option value="change">按 24h 涨跌</option>
+                <option value="recent">按新迁移</option>
+              </select>
+              <button class="primary-btn" id="dex-refresh">刷新</button>
+            </div>
+          </div>
+          <div class="kpi-strip" style="flex:0 0 44px; padding:0; margin:0 0 2px">
+            <div class="kpi"><span>市场数</span><b id="dex-count">—</b></div>
+            <div class="kpi"><span>总流动性</span><b id="dex-liq">—</b></div>
+            <div class="kpi"><span>24H 成交</span><b id="dex-vol">—</b></div>
+            <div class="kpi" title="高危数 / 已补全风险记录数"><span>高危 / 覆盖</span><b id="dex-risk">—</b></div>
+          </div>
+          <section class="panel">
+            <div class="panel-head"><div class="panel-title"><h2>DEX 市场</h2><span class="panel-sub" id="dex-fresh">—</span></div><span class="panel-sub">点击行查看代币</span></div>
+            <div class="table-wrap">
+              <table class="data-table dex-table">
+                <thead><tr><th>代币</th><th>DEX</th><th class="r">迁移</th><th class="r">价格 USD</th><th class="r">24H</th><th class="r">流动性</th><th class="r">24H 成交</th><th class="r">风险</th></tr></thead>
+                <tbody id="dex-body"><tr><td colspan="8" class="empty-cell">加载中…</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ===================== 执行 / 实盘就绪 ===================== -->
+      <div class="view view-live" id="view-live">
+        <div class="page-shell" role="main">
+          <div class="page-head">
+            <div>
+              <div class="eyebrow">EXECUTION · LIVE READINESS</div>
+              <h1>执行 / 实盘就绪</h1>
+            </div>
+            <div class="page-actions">
+              <button class="primary-btn" id="live-refresh">刷新状态</button>
+            </div>
+          </div>
+
+          <section class="exec-hero" id="exec-hero">
+            <div class="exec-hero-main">
+              <span class="exec-kicker">LIVE GATE</span>
+              <div class="exec-status" id="exec-status">—</div>
+              <div class="exec-reason" id="exec-reason">加载中…</div>
+            </div>
+            <div class="exec-checks" id="exec-checks"></div>
+          </section>
+
+          <div class="console-grid exec-grid">
+            <section class="panel">
+              <div class="panel-head"><h2>网络 / 钱包</h2><span class="panel-sub" id="exec-network">—</span></div>
+              <div class="kv-grid" id="exec-wallet"><div class="empty-state">—</div></div>
+            </section>
+            <section class="panel">
+              <div class="panel-head"><h2>风控边界</h2><span class="panel-sub">LIVE 前置</span></div>
+              <div class="kv-grid" id="exec-risk"><div class="empty-state">—</div></div>
+            </section>
+            <section class="panel">
+              <div class="panel-head"><h2>对账 / 执行器</h2><span class="panel-sub" id="exec-reconcile-fresh">—</span></div>
+              <div class="kv-grid" id="exec-reconcile"><div class="empty-state">—</div></div>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="panel-head"><h2>Forward Equity</h2><span class="panel-sub" id="live-perf-fresh">—</span></div>
+            <div class="perf-wrap">
+              <div class="perf-chart" id="live-equity-chart"></div>
+              <div class="perf-list" id="live-perf-list"><div class="empty-state">加载中…</div></div>
+            </div>
+          </section>
+
+          <div class="console-grid two">
+            <section class="panel">
+              <div class="panel-head"><h2>订单</h2><span class="panel-sub" id="exec-orders-count">—</span></div>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead><tr><th>时间</th><th>Mint</th><th>方向</th><th class="r">SOL</th><th>状态</th><th>签名</th><th>原因</th></tr></thead>
+                  <tbody id="exec-orders-body"><tr><td colspan="7" class="empty-cell">加载中…</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+            <section class="panel">
+              <div class="panel-head"><h2>持仓</h2><span class="panel-sub" id="exec-positions-count">—</span></div>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead><tr><th>代币</th><th class="r">成本</th><th class="r">入场市值</th><th class="r">当前</th><th class="r">盈亏</th></tr></thead>
+                  <tbody id="exec-positions-body"><tr><td colspan="5" class="empty-cell">加载中…</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="panel-head"><h2>Testnet / Dry-run 检查</h2><span class="panel-sub">工程验证，不等于策略有效</span></div>
+            <div class="exec-checklist" id="exec-checklist"><div class="empty-state">加载中…</div></div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ===================== 验证视图 ===================== -->
+      <div class="view view-validation" id="view-validation">
+        <div class="validation-page" role="main">
+          <div class="validation-head">
+            <div>
+              <div class="eyebrow">STRATEGY VALIDATION · 样本外 / 成本 / 统计</div>
+              <h1>策略验证报告</h1>
+            </div>
+            <div class="validation-verdict" id="validation-verdict">
+              <span class="verdict-badge" id="verdict-badge">—</span>
+              <b id="verdict-label">尚未运行</b>
+              <span id="verdict-time">—</span>
+            </div>
+          </div>
+
+          <div class="validation-reasons" id="validation-reasons">
+            <div class="empty-state">运行 <code>npm run validate</code> 后，这里会显示结论与失败原因。</div>
+          </div>
+
+          <div class="validation-grid">
+            <section class="panel v-panel">
+              <div class="panel-head"><h2>硬门槛</h2><span class="panel-sub" id="gate-summary">—</span></div>
+              <div class="gate-list" id="gate-list"><div class="empty-state">暂无数据</div></div>
+            </section>
+
+            <section class="panel v-panel">
+              <div class="panel-head"><h2>数据审计</h2><span class="panel-sub">先排除「垃圾进垃圾出」</span></div>
+              <div class="audit-grid" id="audit-grid"><div class="empty-state">暂无数据</div></div>
+            </section>
+          </div>
+
+          <section class="panel v-panel">
+            <div class="panel-head"><h2>样本外 walk-forward</h2><span class="panel-sub" id="wf-summary">—</span></div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>折</th><th>时间窗</th><th class="r">平仓</th><th class="r">盈亏 SOL</th><th class="r">单笔期望</th><th class="r">胜率</th><th class="r">PF</th><th class="r">回撤</th><th class="r">死币折价</th></tr></thead>
+                <tbody id="wf-body"><tr><td colspan="9" class="empty-cell">暂无数据</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+
+          <div class="validation-grid">
+            <section class="panel v-panel">
+              <div class="panel-head"><h2>成本 / 延迟压力</h2><span class="panel-sub">真实摩擦比曲线公式高</span></div>
+              <div class="stress-list" id="stress-list"><div class="empty-state">暂无数据</div></div>
+            </section>
+
+            <section class="panel v-panel">
+              <div class="panel-head"><h2>统计置信</h2><span class="panel-sub">按币种 cluster bootstrap</span></div>
+              <div class="stats-grid" id="stats-grid"><div class="empty-state">暂无数据</div></div>
+            </section>
+          </div>
+
+          <section class="panel v-panel">
+            <div class="panel-head"><h2>规则质量与 FDR</h2><span class="panel-sub" id="rule-summary">—</span></div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>规则</th><th>类型</th><th class="r">命中币数</th><th class="r">≥1.5x</th><th class="r">≥2x</th><th class="r">中位倍数</th><th class="r">lift</th><th class="r">q 值</th><th>结论</th></tr></thead>
+                <tbody id="rule-body"><tr><td colspan="9" class="empty-cell">暂无数据</td></tr></tbody>
+              </table>
+            </div>
+            <div class="panel-note" id="rule-note">q 值只用于排序和预警；规则之间高度相关，不能当作独立实验。</div>
+          </section>
+
+          <div class="validation-grid single">
+            <section class="panel v-panel">
+              <div class="panel-head"><h2>参数敏感性</h2><span class="panel-sub" id="sens-summary">—</span></div>
+              <div class="sens-grid" id="sens-grid"><div class="empty-state">暂无数据</div></div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <footer class="app-footer">
+        <div class="footer-left">
+          <span class="footer-dot"></span>
+          <span class="mono">LOCAL SQLITE · EVENT-DRIVEN ENGINE · ZERO BUILD</span>
+          <span class="footer-sep">/</span>
+          <span class="mono" id="footer-db">data/meme.db</span>
+        </div>
+        <div class="footer-right">
+          <span class="mono" id="footer-data-age">—</span>
+          <span class="footer-sep">/</span>
+          <span class="mono" id="footer-clock">--:--:--</span>
+        </div>
+      </footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js?v=24"></script>
+  </body>
+</html>

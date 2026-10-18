@@ -1,0 +1,47 @@
+{
+  "name": "meme-hunter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "自建 Solana Meme 币监控与交易系统（零依赖原型）",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "ingest": "node --no-warnings src/ingest.mjs",
+    "trades": "node --no-warnings src/trades.mjs",
+    "collect": "node --no-warnings src/collect.mjs",
+    "dev": "node --no-warnings src/ingest.mjs & node --no-warnings src/trades.mjs",
+    "test:engine": "node --no-warnings src/engine/determinism.test.ts",
+    "server": "node --no-warnings src/server.mjs",
+    "backtest": "node --no-warnings src/engine/backtest.ts",
+    "backtest:demo": "node --no-warnings src/engine/backtest.ts --demo --tokens 800",
+    "validate": "node --no-warnings src/validate.ts",
+    "validate:quick": "node --no-warnings src/validate.ts --quick",
+    "analyze": "node --no-warnings src/analyze.ts",
+    "wallets": "node --no-warnings src/wallets.ts",
+    "test": "node --no-warnings src/engine/determinism.test.ts && node --no-warnings src/engine/risk.test.ts && node --no-warnings src/engine/orders.test.ts && node --no-warnings src/engine/exec.test.ts && node --no-warnings src/engine/forwardmath.test.ts && node --no-warnings src/engine/features.test.ts && node --no-warnings src/engine/datalayer.test.ts && node --no-warnings src/engine/backtestcore.test.ts && node --no-warnings src/engine/impact.test.ts && node --no-warnings src/live/fill.test.ts && node --no-warnings src/engine/stats.test.ts",
+    "runner": "node --no-warnings src/runner.ts --sim",
+    "cli": "node --no-warnings vendor/gmgn-skills/dist/index.js",
+    "enrich": "node --no-warnings src/enrich.ts",
+    "candles": "node --no-warnings src/candles.ts",
+    "wallets2": "node --no-warnings src/wallets2.ts",
+    "experiments": "node --no-warnings src/experiments.ts",
+    "dex": "node --no-warnings src/dex.ts",
+    "shadow:crash": "node --no-warnings src/shadow.ts --strategy crash --shadow-db data/shadow-crash.db --size 0.02 --poll 2000",
+    "shadow:wallet": "node --no-warnings src/shadow.ts --strategy wallet --shadow-db data/shadow-wallet.db --size 0.02 --poll 2000",
+    "shadow:wallet-conf": "node --no-warnings src/shadow.ts --strategy wallet --min-wallets 2 --shadow-db data/shadow-wallet-conf.db --size 0.02 --poll 2000",
+    "shadow:dex": "node --no-warnings src/shadow-dex.ts --shadow-db data/shadow-dex.db --size 0.02 --poll 30000",
+    "validate:crash": "node --no-warnings src/validate-crash.ts",
+    "shadow:crash-005": "node --no-warnings src/shadow.ts --strategy crash --shadow-db data/shadow-crash-005.db --size 0.05 --poll 2000",
+    "up": "node --no-warnings src/supervise.mjs",
+    "down": "node --no-warnings src/supervise-stop.mjs",
+    "report:daily": "node --no-warnings src/report-daily.ts",
+    "reconcile:live": "node --no-warnings src/reconcile-live.ts",
+    "live:selftest": "node --no-warnings src/live/selftest.ts",
+    "shadow:wallet-conf-q": "node --no-warnings src/shadow.ts --strategy wallet --min-wallets 2 --min-copyability 0.45 --min-oos 4 --shadow-db data/shadow-wallet-conf-q.db --size 0.05 --max-open 5 --poll 2000"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.99.0"
+  }
+}

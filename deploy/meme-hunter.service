@@ -1,0 +1,16 @@
+[Unit]
+Description=Meme Hunter collector / server / paper runner / shadows
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/dominic-jamil/GIthub_Code/Meme_Hunter
+ExecStart=/home/dominic-jamil/node-v24.18.0-linux-x64/bin/node --no-warnings src/supervise.mjs
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=10
+
+[Install]
+WantedBy=default.target
