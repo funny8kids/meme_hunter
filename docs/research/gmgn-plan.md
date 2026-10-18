@@ -1,6 +1,6 @@
 # GMGN 式 Meme 币交易系统 · 低成本方案 v1
 
-> ⚠️ **本文档的第 3~5 节已被 [02-tools-and-repos-research.md](02-tools-and-repos-research.md) 取代**（GMGN 官方 OpenAPI 实测可用，数据层不再需要自建）。其余部分仍然有效，作为 Plan B。
+> ⚠️ **本文档的第 3~5 节已被 [tools-and-repos.md](tools-and-repos.md) 取代**（GMGN 官方 OpenAPI 实测可用，数据层不再需要自建）。其余部分仍然有效，作为 Plan B。
 > 原则：**先花时间，后花钱；先用免费数据验证 edge，再投入基础设施。**
 > 所有价格/费率均为量级参考，会随平台政策变化，落地前以官网为准。
 > 目标：用尽可能低的构建成本，做一个「发现新币 → 过滤风险 → 快速买卖 → 记账」的系统，并以赚钱为目的。

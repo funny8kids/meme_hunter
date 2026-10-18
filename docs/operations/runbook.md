@@ -67,7 +67,7 @@ npm run validate           # 4 折 walk-forward + 成本/延迟压力 + bootstra
 判定：`INSUFFICIENT_DATA` / `NO_GO` / `PAPER_ONLY` / `GO_LIVE`。
 **只有 `GO_LIVE` 才允许考虑极小资金实盘。**
 
-> 详细方法与当前数据结论见 `docs/07-terminal-and-validation.md`。
+> 详细方法与当前数据结论见 `../design/terminal-and-validation.md`。
 
 ---
 
@@ -101,7 +101,7 @@ npm run server -- --port 8787 --db data/meme.db
 | `GET /metrics` `GET /health` | 指标 / 健康检查 |
 
 前端在 `http://127.0.0.1:8787/`，包含 终端 / 钱包 / 验证 / 控制台。
-设计说明见 `docs/07-terminal-and-validation.md`、`docs/08-intel-console.md`。
+设计说明见 `../design/terminal-and-validation.md`、`../design/intel-console.md`。
 
 ---
 

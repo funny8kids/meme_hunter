@@ -1,5 +1,7 @@
 # 实盘接入（当前仍锁定）
 
+> MetaMask 是 EVM 钱包，不能直接签 Solana；完整差距见 [10-real-wallet-gap.md](../10-real-wallet-gap.md)。
+
 > 原则：策略没有通过 OOS / 成本压力 / forward shadow，不允许接真实钱包。
 
 ## 页面

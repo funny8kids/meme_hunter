@@ -236,12 +236,15 @@ deploy/                       systemd service
 
 ## 文档
 
-- [`docs/05-core-engine-design.md`](docs/05-core-engine-design.md)
-- [`docs/06-runbook.md`](docs/06-runbook.md)
-- [`docs/07-terminal-and-validation.md`](docs/07-terminal-and-validation.md)
-- [`docs/08-intel-console.md`](docs/08-intel-console.md)
-- [`docs/09-live-trading.md`](docs/09-live-trading.md)
-- [`docs/icon-options.html`](docs/icon-options.html)
+- [`docs/README.md`](docs/README.md) — 文档索引
+- [`docs/01-overview.md`](docs/01-overview.md) — 系统总览
+- [`docs/10-real-wallet-gap.md`](docs/10-real-wallet-gap.md) — MetaMask / Phantom 真实资金差距
+- [`docs/design/core-engine.md`](docs/design/core-engine.md)
+- [`docs/operations/runbook.md`](docs/operations/runbook.md)
+- [`docs/design/terminal-and-validation.md`](docs/design/terminal-and-validation.md)
+- [`docs/design/intel-console.md`](docs/design/intel-console.md)
+- [`docs/operations/live-trading.md`](docs/operations/live-trading.md)
+- [`docs/design/icon-options.html`](docs/design/icon-options.html)
 
 ---
 

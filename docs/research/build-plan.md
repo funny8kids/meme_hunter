@@ -116,7 +116,7 @@ DexScreener / Jupiter / RugCheck ────────▶│  Enricher (仅�
 
 ## 4. 数据模型
 
-已落地在 [`src/schema.sql`](../src/schema.sql)：
+已落地在 [`src/schema.sql`](../../src/schema.sql)：
 
 - `tokens` — 创建信息 + enrich 回填字段
 - `trades` — 逐笔成交（签名去重）
@@ -281,9 +281,9 @@ RPC_WS="wss://atlas-mainnet.helius-rpc.com/?api-key=YOUR_KEY" npm run trades
 已实测：45 秒采集到 80 个新币、559 笔成交，约 924 笔/分钟。
 
 文件：
-- [`src/ingest.mjs`](../src/ingest.mjs) — PumpPortal 采集
-- [`src/trades.mjs`](../src/trades.mjs) — 日志订阅 + Anchor 解码
-- [`src/schema.sql`](../src/schema.sql) — 数据模型
+- [`src/ingest.mjs`](../../src/ingest.mjs) — PumpPortal 采集
+- [`src/trades.mjs`](../../src/trades.mjs) — 日志订阅 + Anchor 解码
+- [`src/schema.sql`](../../src/schema.sql) — 数据模型
 
 ### 下一步（W1 剩余部分）
 

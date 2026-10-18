@@ -329,7 +329,7 @@ web/                # 零构建终端（index.html / style.css / app.js）
 - ❌ 自建验证节点、gRPC、colocation（延迟不是我们的 edge）
 - ❌ 机器学习（先用可解释规则跑出正期望再说）
 - ❌ 多链（Solana 先做透）
-- ❌ 重前端框架 / SSR（已有一个零构建的只读终端，见 `docs/07-terminal-and-validation.md`）
+- ❌ 重前端框架 / SSR（已有一个零构建的只读终端，见 `terminal-and-validation.md`）
 - ❌ 优雅关闭的复杂逻辑（crash-only，重启即恢复）
 
 ---
